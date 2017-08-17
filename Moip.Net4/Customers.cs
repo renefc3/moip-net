@@ -232,12 +232,35 @@ namespace Moip.Net4
         MOIP_ACCOUNT
     }
 
+    /// <summary>
+    /// <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Documentação</see> 
+    /// </summary>
     public enum OrderStatusType
     {
+        /// <summary>
+        /// Pedido criado. Mas ainda não possui nenhum pagamento. <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Mais Informações</see> 
+        /// </summary>
         CREATED,
+
+        /// <summary>
+        ///Pedido aguardando confirmação de pagamento. Indica que há um pagamento de cartão em análise ou um boleto que ainda não foi confirmado pelo banco. <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Mais Informações</see> 
+        /// </summary>
         WAITING,
+
+        /// <summary>
+        /// Pedido pago. O pagamento criado nesse pedido foi autorizado. <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Mais Informações</see> 
+        /// </summary>
         PAID,
+
+
+        /// <summary>
+        /// Pedido não pago. O pagamento criado nesse pedido foi cancelado (Pagamentos com cartão podem ser cancelados pelo Moip ou pelo Emissor do cartão, boletos são cancelados 5 dias após vencimento, débito bancário é cancelado em caso de falha). <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Mais Informações</see> 
+        /// </summary> PAID,
         NOT_PAID,
+
+        /// <summary>
+        /// Pedido revertido. Sofreu um chargeback ou foi completamente reembolsado. <see href="https://dev.moip.com.br/v2.0/reference#lista-de-status-possiveis-pedido">Mais Informações</see> 
+        /// </summary>
         REVERTED
     }
 

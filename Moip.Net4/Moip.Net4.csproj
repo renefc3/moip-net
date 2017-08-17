@@ -47,6 +47,7 @@
     <Compile Include="Class1.cs" />
     <Compile Include="Customers.cs" />
     <Compile Include="MoipException.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
