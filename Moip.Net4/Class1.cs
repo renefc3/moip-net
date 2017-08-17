@@ -29,7 +29,7 @@ namespace Moip.Net4
 
         #region JsonSerializerSettings
 
-        protected  JsonSerializerSettings JsonSettings { get; }
+        protected JsonSerializerSettings JsonSettings { get; }
 
 
         public string ToJson(object item)
@@ -96,7 +96,7 @@ namespace Moip.Net4
 
         protected async Task<RES> DoPostAsync<REQ, RES>(Uri uri, REQ body)
         {
-          
+
             try
             {
                 var retorno = await DoPostVoidAsync(uri, body);
@@ -125,8 +125,6 @@ namespace Moip.Net4
 
 
         #region GET
-       
-
         protected async Task<RES> DoGetAsync<RES>(Uri uri)
         {
             HttpClient req = CreateRequest();
@@ -145,14 +143,34 @@ namespace Moip.Net4
                 throw;
             }
         }
-
-        protected RES DoGet< RES>(Uri uri)
+        protected RES DoGet<RES>(Uri uri)
         {
             return DoGetAsync<RES>(uri).Result;
         }
+        #endregion
 
-       
+        #region DELETE
+        protected async Task<HttpResponseMessage> DoDeleteAsync(Uri uri)
+        {
+            HttpClient req = CreateRequest();
 
+            try
+            {
+                var retorno = await req.GetAsync(uri);
+                if (!retorno.IsSuccessStatusCode)
+                    TratarRetornoSemSucesso(retorno);
+                
+                return retorno;
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+        }
+        protected HttpResponseMessage DoDelete(Uri uri)
+        {
+            return DoDeleteAsync(uri).Result;
+        }
         #endregion
 
 

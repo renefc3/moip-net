@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Moip.Net4
 {
-    public sealed class CustomersApi :BaseClient
+    public sealed class CustomersApi : BaseClient
     {
         public CustomersApi(Uri apiUri, string apiToken, string apiKey) : base(apiUri, apiToken, apiKey)
         {
@@ -18,7 +18,7 @@ namespace Moip.Net4
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public CreateCustomersResponse CriarCliente(CreateCustomersRequest req)
+        public CreateCustomersResponse CreateCustomer(CreateCustomersRequest req)
         {
             return DoPost<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
         }
@@ -28,7 +28,7 @@ namespace Moip.Net4
         /// </summary>
         /// <param name="req"></param>
         /// <returns></returns>
-        public async Task<CreateCustomersResponse> CriarClienteAsync(CreateCustomersRequest req)
+        public async Task<CreateCustomersResponse> CreateCustomerAsync(CreateCustomersRequest req)
         {
             return await DoPostAsync<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
         }
@@ -37,34 +37,107 @@ namespace Moip.Net4
         /// <summary>
         /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#adicionar-cartao-de-credito">Adicionar um cartão de crédito</see> 
         /// </summary>
+        /// <param name="idCustomer"></param>
         /// <param name="req"></param>
         /// <returns></returns>
-        public CreateCustomersResponse AdicionarCartaoCredito(CreateCustomersRequest req)
+        public CreditCardAddCreditCardResponse AddCreditCard(string idCustomer, AddCreditCardRequest req)
         {
-            return DoPost<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
+            return DoPost<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri($"v2/customers/{idCustomer}/fundinginstruments"), req);
         }
 
         /// <summary>
         /// Chamada Assincrona da API <see href="https://dev.moip.com.br/v2.0/reference#adicionar-cartao-de-credito">Adicionar um cartão de crédito</see> 
         /// </summary>
+        /// <param name="idCustomer"></param>
         /// <param name="req"></param>
         /// <returns></returns>
-        public async Task<CreateCustomersResponse> AdicionarCartaoCreditoAsync(CreateCustomersRequest req)
+        public async Task<CreditCardAddCreditCardResponse> AddCreditCardAsync(string idCustomer, AddCreditCardRequest req)
         {
-            return await DoPostAsync<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
+            return await DoPostAsync<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri($"v2/customers/{idCustomer}/fundinginstruments"), req);
         }
 
 
+        /// <summary>
+        /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#consultar-um-cliente">Consultar um cliente </see> 
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public CreateCustomersResponse GetCustomer(string idCustomer)
+        {
+            return DoGet<CreateCustomersResponse>(new Uri($"v2/customers/{idCustomer}"));
+        }
 
+        /// <summary>
+        /// Chamada Assincrona da API <see href="https://dev.moip.com.br/v2.0/reference#consultar-um-cliente">Consultar um cliente</see> 
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public async Task<CreateCustomersResponse> GetCustomerAsync(string idCustomer)
+        {
+            return await DoGetAsync<CreateCustomersResponse>(new Uri($"v2/customers/{idCustomer}"));
+        }
 
+        /// <summary>
+        /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#deletar-cartão-de-crédito">Deletar um cartão de crédito</see> 
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public System.Net.Http.HttpResponseMessage DeleteCreditCard(string idCreditCard)
+        {
+            return DoDelete(new Uri($"v2/fundinginstruments/{idCreditCard}"));
+        }
 
-
-
-
-
+        /// <summary>
+        /// Chamada Assincrona da API <see href="https://dev.moip.com.br/v2.0/reference#deletar-cartão-de-crédito">Deletar um cartão de crédito</see> 
+        /// </summary>
+        /// <param name="idCustomer"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
+        public async Task<System.Net.Http.HttpResponseMessage> DeleteCreditCardAsync(string idCreditCard)
+        {
+            return await DoDeleteAsync(new Uri($"v2/fundinginstruments/{idCreditCard}"));
+        }
 
     }
 
+    public class AddCreditCardResponse
+    {
+        public CreditCardAddCreditCardResponse CreditCard { get; set; }
+    }
+    public class CreditCardAddCreditCardResponse
+    {
+        public string Id { get; set; }
+        public string Hash { get; set; }
+        public BrandType Brand { get; set; }
+        public string First6 { get; set; }
+        public string Last4 { get; set; }
+
+    }
+
+    public class AddCreditCardRequest
+    {
+        public MethodType Method { get; set; }
+        public CreditCardAddCreditCardRequest CreditCard { get; set; }
+    }
+    public class CreditCardAddCreditCardRequest
+    {
+        public string Id { get; set; }
+        public string Number { get; set; }
+        public int? ExpirationMonth { get; set; }
+        public int? ExpirationYear { get; set; }
+        public int? Cvc { get; set; }
+        public HolderDto Holder { get; set; }
+
+    }
+
+    public class HolderDto
+    {
+        public string Fullname { get; set; }
+        public string Birthdate { get; set; }
+        public PhoneDto Phone { get; set; }
+        public DocumentDto TaxDocument { get; set; }
+    }
 
 
 
@@ -74,7 +147,7 @@ namespace Moip.Net4
         public string OwnId { get; set; }
         public string Fullname { get; set; }
         public string Email { get; set; }
-        public PhoneDto Phone { get; set; }      
+        public PhoneDto Phone { get; set; }
         public string BirthDate { get; set; }
         public DocumentDto TaxDocument { get; set; }
         public AddressDto ShippingAddress { get; set; }
@@ -96,7 +169,7 @@ namespace Moip.Net4
         public string BirthDate { get; set; }
         public DocumentDto TaxDocument { get; set; }
         public AddressDto ShippingAddress { get; set; }
-        
+
         public override string ToString()
         {
             return OwnId;
