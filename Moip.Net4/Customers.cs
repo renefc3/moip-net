@@ -13,6 +13,7 @@ namespace Moip.Net4
 
         }
 
+
         /// <summary>
         /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#criar-um-cliente">Criar um cliente </see> 
         /// </summary>
@@ -37,7 +38,7 @@ namespace Moip.Net4
         /// <summary>
         /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#adicionar-cartao-de-credito">Adicionar um cartão de crédito</see> 
         /// </summary>
-        /// <param name="idCustomer"></param>
+        /// <param name="idCustomer">Id do Cliente no Moip</param>
         /// <param name="req"></param>
         /// <returns></returns>
         public CreditCardAddCreditCardResponse AddCreditCard(string idCustomer, AddCreditCardRequest req)
@@ -48,7 +49,7 @@ namespace Moip.Net4
         /// <summary>
         /// Chamada Assincrona da API <see href="https://dev.moip.com.br/v2.0/reference#adicionar-cartao-de-credito">Adicionar um cartão de crédito</see> 
         /// </summary>
-        /// <param name="idCustomer"></param>
+        /// <param name="idCustomer">Id do Cliente no Moip</param>
         /// <param name="req"></param>
         /// <returns></returns>
         public async Task<CreditCardAddCreditCardResponse> AddCreditCardAsync(string idCustomer, AddCreditCardRequest req)
@@ -60,7 +61,7 @@ namespace Moip.Net4
         /// <summary>
         /// Chamada Sincrona da API <see href="https://dev.moip.com.br/v2.0/reference#consultar-um-cliente">Consultar um cliente </see> 
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="idCustomer">Id do Cliente no Moip</param>
         /// <returns></returns>
         public CreateCustomersResponse GetCustomer(string idCustomer)
         {
@@ -70,7 +71,7 @@ namespace Moip.Net4
         /// <summary>
         /// Chamada Assincrona da API <see href="https://dev.moip.com.br/v2.0/reference#consultar-um-cliente">Consultar um cliente</see> 
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="idCustomer">Id do Cliente no Moip</param>
         /// <returns></returns>
         public async Task<CreateCustomersResponse> GetCustomerAsync(string idCustomer)
         {
@@ -112,7 +113,6 @@ namespace Moip.Net4
         public BrandType Brand { get; set; }
         public string First6 { get; set; }
         public string Last4 { get; set; }
-
     }
 
     public class AddCreditCardRequest
@@ -162,11 +162,30 @@ namespace Moip.Net4
 
     public class CreateCustomersRequest
     {
+        /// <summary>
+        /// REQUIRED
+        /// Id próprio do cliente.Referência externa.Limite de caracteres: (65).
+        /// </summary>
         public string OwnId { get; set; }
+        /// <summary>
+        /// REQUIRED
+        /// Nome completo do cliente.Limite de caracteres: (90)
+        /// </summary>
         public string Fullname { get; set; }
+        /// <summary>
+        /// REQUIRED
+        /// Email do cliente. Limite de caracteres: (45)
+        /// </summary>
         public string Email { get; set; }
+
         public PhoneDto Phone { get; set; }
+
+        /// <summary>
+        /// Data de nascimento do cliente. date (AAAA-MM-DD)
+        /// </summary>
         public string BirthDate { get; set; }
+
+
         public DocumentDto TaxDocument { get; set; }
         public AddressDto ShippingAddress { get; set; }
 
@@ -179,31 +198,70 @@ namespace Moip.Net4
 
     public class PhoneDto
     {
+        /// <summary>
+        /// REQUIRED
+        /// DDI (código internacional) do telefone. Valores possíveis: 55. Limite de caracteres: 2
+        /// </summary>
         public int CountryCode { get; set; }
+        /// <summary>
+        /// REQUIRED
+        /// Código de área do cliente. Limite de caracteres: (2)
+        /// </summary>
         public int AreaCode { get; set; }
+        /// <summary>
+        /// REQUIRED
+        /// Número de telefone do cliente. Limite de caracteres: 9
+        /// </summary>
         public int Number { get; set; }
-        public override string ToString()
-        {
-            return string.Format("+{0} ({1}) {2}", CountryCode, AreaCode, Number);
-        }
     }
 
     public class DocumentDto
     {
+        /// <summary>
+        /// Tipo do documento. Valores possíveis: CPF, CNPJ. Limite de caracteres: (4)
+        /// </summary>
         public DocumentType Type { get; set; }
+        /// <summary>
+        /// Número do documento. Limite de caracteres: (11)
+        /// </summary>
         public string Number { get; set; }
     }
 
 
     public class AddressDto
     {
+        /// <summary>
+        /// REQUIRED Logradouro do endereço
+        /// </summary>
         public string Street { get; set; }
+        /// <summary>
+        /// REQUIRED Número
+        /// </summary>
         public string StreetNumber { get; set; }
+        
+        /// <summary>
+        /// Complemento do endereço.
+        /// </summary>
         public string Complement { get; set; }
+        /// <summary>
+        /// REQUIRED Bairro
+        /// </summary>
         public string District { get; set; }
+        /// <summary>
+        /// REQUIRED Cidade
+        /// </summary>
         public string City { get; set; }
+        /// <summary>
+        /// REQUIRED Estado
+        /// </summary>
         public string State { get; set; }
+        /// <summary>
+        /// REQUIRED País em formato ISO-alpha3, exemplo BRA.
+        /// </summary>
         public string Country { get; set; }
+        /// <summary>
+        /// REQUIRED O CEP do endereço de cobrança
+        /// </summary>
         public string ZipCode { get; set; }
     }
 
@@ -270,14 +328,42 @@ namespace Moip.Net4
 
     public enum PaymentStatusType
     {
+        /// <summary>
+        /// Pagamento criado.
+        /// </summary>
         CREATED,
+        /// <summary>
+        /// Pagamento aguardando confirmação (Boleto não confirmado ou débito bancário pendente).
+        /// </summary>
         WAITING,
+        /// <summary>
+        /// Pagamento de cartão aguardando análise.
+        /// </summary>
         IN_ANALYSIS,
+        /// <summary>
+        /// O valor do pagamento está reservado no cartão de crédito do comprador.
+        /// </summary>
         PRE_AUTHORIZED,
+        /// <summary>
+        /// Pagamento autorizado.
+        /// </summary>
         AUTHORIZED,
+        /// <summary>
+        /// Pagamento cancelado (Pagamentos com cartão podem ser cancelados pelo Moip ou pelo emissor do cartão, boletos são cancelados 5 dias após vencimento, débito bancário é cancelado em caso de falha).
+        /// </summary>
         CANCELLED,
+        /// <summary>
+        /// Pagamento reembolsado (quem processa reembolsos são Moip e/ou Merchant).
+        /// </summary>
         REFUNDED,
+        /// <summary>
+        /// Pagamento revertido (Chargeback. O cliente contesta a transação diretamente no emissor).
+        /// </summary>
         REVERSED,
+
+        /// <summary>
+        /// Pagamento liquidado. Significa que o valor da transação foi “liberado” na conta, para que o merchant possa sacar para sua conta bancária.
+        /// </summary>
         SETTLED
     }
 
