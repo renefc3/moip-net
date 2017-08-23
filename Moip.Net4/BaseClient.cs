@@ -4,6 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
+using System.Collections.Generic;
 
 namespace Moip.Net4
 {
@@ -116,6 +117,40 @@ namespace Moip.Net4
         {
             return DoPostVoidAsync(uri, body).Result;
         }
+
+        protected async Task<RES> DoPostFormUrlEncodedAsync<RES>(Uri uri, List<KeyValuePair<string, string>> body)
+        {
+
+            try
+            {
+                HttpClient req = CreateRequest();
+                try
+                {
+                    HttpContent abodyEnvio = new FormUrlEncodedContent(body);
+                    var retorno = await req.PostAsync(uri, abodyEnvio);
+                    if (!retorno.IsSuccessStatusCode)
+                        TratarRetornoSemSucesso(retorno);
+
+                    var retornoJson = await retorno.Content.ReadAsStringAsync();
+                    return FromJson<RES>(retornoJson);
+                }
+                catch (Exception exception)
+                {
+                    throw;
+                }
+            }
+            catch (Exception exception)
+            {
+                throw;
+            }
+        }
+
+        protected RES DoPostFormUrlEncoded<RES>(Uri uri, List<KeyValuePair<string, string>> body)
+        {
+            return DoPostFormUrlEncodedAsync<RES>(uri, body).Result;
+        }
+
+
 
         #endregion
 

@@ -58,7 +58,8 @@
     <Compile Include="Customer\HolderDto.cs" />
     <Compile Include="Customer\PhoneDto.cs" />
     <Compile Include="MoipException.cs" />
-    <Compile Include="OAuth\Class1.cs" />
+    <Compile Include="OAuth\GenerateTokenResponse.cs" />
+    <Compile Include="OAuth\OAuthAPI.cs" />
     <Compile Include="Order\AmountReceiverCreateOrdersRequest.cs" />
     <Compile Include="Order\AmountsCreateOrdersRequest.cs" />
     <Compile Include="Order\CheckoutMoipLinksCreateOrdersResponse.cs" />
