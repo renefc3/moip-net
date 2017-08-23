@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
-using System.IO;
 
 namespace Moip.Net4
 {
@@ -20,7 +17,7 @@ namespace Moip.Net4
         private readonly Encoding encoding = Encoding.UTF8;
         #endregion
 
-        public BaseClient(Uri apiUri, string apiToken, string apiKey)
+        protected BaseClient(Uri apiUri, string apiToken, string apiKey)
         {
             ApiUri = apiUri;
             ApiToken = apiToken;
@@ -189,59 +186,6 @@ namespace Moip.Net4
         }
 
         #endregion
-
-    }
-
-
-    public class ResponseDetail
-    {
-        /// <summary>
-        /// Descrição do alerta
-        /// </summary>
-        public string Description { get; set; }
-
-        /// <summary>
-        /// Código do alerta
-        /// </summary>
-        public string Code { get; set; }
-
-        /// <summary>
-        /// Parâmetro relacionado ao erro (Apenas V2)
-        /// </summary>
-        public string Path { get; set; }
-    }
-
-    /// <summary>
-    /// Estrutura de retorno de mensagens do Moip
-    /// </summary>
-    public struct ResponseError
-    {
-        /// <summary>
-        /// Mensagem de retorno
-        /// </summary>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Erros da mensagem, se existirem
-        /// </summary>
-        public ResponseDetail[] Errors { get; set; }
-
-
-        public string FullMessage
-        {
-            get
-            {
-                var msg = "";
-                if (!string.IsNullOrEmpty(Message))
-                {
-                    msg += Message + (Errors.Length > 0 ? Environment.NewLine : "");
-                }
-
-                msg += string.Join(Environment.NewLine, Errors.Select(x => x.Description).ToArray());
-
-                return msg;
-            }
-        }
 
     }
 

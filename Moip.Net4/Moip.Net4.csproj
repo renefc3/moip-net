@@ -44,14 +44,54 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
-    <Compile Include="Customers.cs" />
+    <Compile Include="BaseClient.cs" />
+    <Compile Include="Customer\AddCreditCardRequest.cs" />
+    <Compile Include="Customer\AddCreditCardResponse.cs" />
+    <Compile Include="Customer\AddressDto.cs" />
+    <Compile Include="Customer\CreateCustomersRequest.cs" />
+    <Compile Include="Customer\CreateCustomersResponse.cs" />
+    <Compile Include="Customer\CreditCardAddCreditCardRequest.cs" />
+    <Compile Include="Customer\CreditCardAddCreditCardResponse.cs" />
+    <Compile Include="Customer\Customers.cs" />
+    <Compile Include="Customer\CustomersApi.cs" />
+    <Compile Include="Customer\DocumentDto.cs" />
+    <Compile Include="Customer\HolderDto.cs" />
+    <Compile Include="Customer\PhoneDto.cs" />
     <Compile Include="MoipException.cs" />
-    <Compile Include="Order.cs" />
+    <Compile Include="OAuth\Class1.cs" />
+    <Compile Include="Order\AmountReceiverCreateOrdersRequest.cs" />
+    <Compile Include="Order\AmountsCreateOrdersRequest.cs" />
+    <Compile Include="Order\CheckoutMoipLinksCreateOrdersResponse.cs" />
+    <Compile Include="Order\ClienteCreateOrdersRequest.cs" />
+    <Compile Include="Order\ClienteCreateOrdersResponse.cs" />
+    <Compile Include="Order\CreateOrdersRequest.cs" />
+    <Compile Include="Order\CreateOrdersResponse.cs" />
+    <Compile Include="Order\GetOrderResponse.cs" />
+    <Compile Include="Order\HostedAccountLinksClienteCreateOrdersResponse.cs" />
+    <Compile Include="Order\LinksClienteCreateOrdersResponse.cs" />
+    <Compile Include="Order\LinksCreateOrdersResponse.cs" />
+    <Compile Include="Order\MoipAccountClienteCreateOrdersResponse.cs" />
+    <Compile Include="Order\MoipAccountReceiverCreateOrdersRequest.cs" />
+    <Compile Include="Order\MoipAccountReceiverCreateOrdersResponse.cs" />
+    <Compile Include="Order\OrderEvent.cs" />
+    <Compile Include="Order\OrderItemCreateOrdersRequest.cs" />
+    <Compile Include="Order\OrderItemCreateOrdersResponse.cs" />
+    <Compile Include="Order\OrdersApi.cs" />
+    <Compile Include="Order\ReceiverCreateOrdersRequest.cs" />
+    <Compile Include="Order\ReceiverCreateOrdersResponse.cs" />
+    <Compile Include="Order\SelfLinksClienteCreateOrdersResponse.cs" />
+    <Compile Include="Order\SubTotaisTotaisAmountsCreateOrdersResponse.cs" />
+    <Compile Include="Order\TotaisAmountsCreateOrdersRequest.cs" />
+    <Compile Include="Order\TotaisAmountsCreateOrdersResponse.cs" />
+    <Compile Include="Order\TotaisAmountsReceiverCreateOrdersResponse.cs" />
+    <Compile Include="Payment\Payment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseDetail.cs" />
+    <Compile Include="ResponseError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
