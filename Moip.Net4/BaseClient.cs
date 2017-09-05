@@ -27,7 +27,7 @@ namespace Moip.Net4
 
         #region JsonSerializerSettings
 
-        protected JsonSerializerSettings JsonSettings { get; }
+        protected Newtonsoft.Json.JsonSerializerSettings JsonSettings { get; }
 
 
         public string ToJson(object item)
