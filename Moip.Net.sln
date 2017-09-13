@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moip.Net", "Moip.Net\Moip.Net.csproj", "{ABED97B6-5479-46AA-9570-1012A9908263}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moip.NetTests", "Moip.NetTests\Moip.NetTests.csproj", "{3B02D62F-C2BC-4B5C-BCE0-AA477B90E407}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{526013D7-92D0-4BF2-99A7-A8C45848103F}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
@@ -17,24 +13,22 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moip.Net4", "Moip.Net4\Moip.Net4.csproj", "{D98CD739-7F72-4BFF-BD55-5507CE490863}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Moip.Net4.Tests", "Moip.Net4.Tests\Moip.Net4.Tests.csproj", "{10797B09-1769-47C9-8695-AEE31504AD01}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{ABED97B6-5479-46AA-9570-1012A9908263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{ABED97B6-5479-46AA-9570-1012A9908263}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{ABED97B6-5479-46AA-9570-1012A9908263}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{ABED97B6-5479-46AA-9570-1012A9908263}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3B02D62F-C2BC-4B5C-BCE0-AA477B90E407}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3B02D62F-C2BC-4B5C-BCE0-AA477B90E407}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3B02D62F-C2BC-4B5C-BCE0-AA477B90E407}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3B02D62F-C2BC-4B5C-BCE0-AA477B90E407}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D98CD739-7F72-4BFF-BD55-5507CE490863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D98CD739-7F72-4BFF-BD55-5507CE490863}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D98CD739-7F72-4BFF-BD55-5507CE490863}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D98CD739-7F72-4BFF-BD55-5507CE490863}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10797B09-1769-47C9-8695-AEE31504AD01}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10797B09-1769-47C9-8695-AEE31504AD01}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10797B09-1769-47C9-8695-AEE31504AD01}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10797B09-1769-47C9-8695-AEE31504AD01}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

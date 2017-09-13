@@ -14,12 +14,12 @@ namespace Moip.Net4
         /// <summary>
         /// Mensagem de retorno
         /// </summary>
-        public string Message { get; set; }
+        public string Message { get; internal set; }
 
         /// <summary>
         /// Erros da mensagem, se existirem
         /// </summary>
-        public ResponseDetail[] Errors { get; set; }
+        public ResponseDetail[] Errors { get; internal set; }
 
 
         public string FullMessage

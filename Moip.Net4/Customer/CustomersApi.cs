@@ -19,7 +19,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public CreditCardAddCreditCardResponse AddCreditCard(string idCustomer, AddCreditCardRequest req)
         {
-            return DoPost<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri($"v2/customers/{idCustomer}/fundinginstruments"), req);
+            return DoPost<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri(ApiUri, $"v2/customers/{idCustomer}/fundinginstruments"), req);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<CreditCardAddCreditCardResponse> AddCreditCardAsync(string idCustomer, AddCreditCardRequest req)
         {
-            return await DoPostAsync<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri($"v2/customers/{idCustomer}/fundinginstruments"), req);
+            return await DoPostAsync<AddCreditCardRequest, CreditCardAddCreditCardResponse>(new Uri(ApiUri, $"v2/customers/{idCustomer}/fundinginstruments"), req);
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public CreateCustomersResponse CreateCustomer(CreateCustomersRequest req)
         {
-            return DoPost<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
+            return DoPost<CreateCustomersRequest, CreateCustomersResponse>(new Uri(ApiUri, "v2/customers"), req);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<CreateCustomersResponse> CreateCustomerAsync(CreateCustomersRequest req)
         {
-            return await DoPostAsync<CreateCustomersRequest, CreateCustomersResponse>(new Uri("v2/customers"), req);
+            return await DoPostAsync<CreateCustomersRequest, CreateCustomersResponse>(new Uri(ApiUri, "v2/customers"), req);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public System.Net.Http.HttpResponseMessage DeleteCreditCard(string idCreditCard)
         {
-            return DoDelete(new Uri($"v2/fundinginstruments/{idCreditCard}"));
+            return DoDelete(new Uri(ApiUri, $"v2/fundinginstruments/{idCreditCard}"));
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<System.Net.Http.HttpResponseMessage> DeleteCreditCardAsync(string idCreditCard)
         {
-            return await DoDeleteAsync(new Uri($"v2/fundinginstruments/{idCreditCard}"));
+            return await DoDeleteAsync(new Uri(ApiUri, $"v2/fundinginstruments/{idCreditCard}"));
         }
 
 
@@ -81,7 +81,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public CreateCustomersResponse GetCustomer(string idCustomer)
         {
-            return DoGet<CreateCustomersResponse>(new Uri($"v2/customers/{idCustomer}"));
+            return DoGet<CreateCustomersResponse>(new Uri(ApiUri, $"v2/customers/{idCustomer}"));
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<CreateCustomersResponse> GetCustomerAsync(string idCustomer)
         {
-            return await DoGetAsync<CreateCustomersResponse>(new Uri($"v2/customers/{idCustomer}"));
+            return await DoGetAsync<CreateCustomersResponse>(new Uri(ApiUri, $"v2/customers/{idCustomer}"));
         }
 
     }

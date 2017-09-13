@@ -13,7 +13,7 @@ namespace Moip.Net4
         #region Properties
         private readonly string ApiToken;
         private readonly string ApiKey;
-        private readonly Uri ApiUri;
+        protected readonly Uri ApiUri;
         private const string UserAgent = "Moip.NET.v0.0.1";
         private readonly Encoding encoding = Encoding.UTF8;
         #endregion
@@ -27,7 +27,16 @@ namespace Moip.Net4
 
         #region JsonSerializerSettings
 
-        protected Newtonsoft.Json.JsonSerializerSettings JsonSettings { get; }
+        protected Newtonsoft.Json.JsonSerializerSettings JsonSettings
+        {
+            get
+            {
+                return new JsonSerializerSettings()
+                {
+                    DateFormatString = "yyyy-MM-dd"
+                };
+            }
+        }
 
 
         public string ToJson(object item)
@@ -51,7 +60,7 @@ namespace Moip.Net4
 
             client.DefaultRequestHeaders.Add("Authorization", GetAuthorizationHeader());
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
-
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             return client;
         }
 
@@ -69,7 +78,7 @@ namespace Moip.Net4
             var jsonResult = httpResponse.Content.ReadAsStringAsync().Result;
 
             var responseError = FromJson<ResponseError>(jsonResult);
-            throw new MoipException(responseError.FullMessage, httpResponse.StatusCode);
+            throw new MoipException(responseError.FullMessage, httpResponse.StatusCode, responseError);
         }
 
         #region POST
@@ -78,7 +87,7 @@ namespace Moip.Net4
             HttpClient req = CreateRequest();
             try
             {
-                HttpContent abodyEnvio = new StringContent(ToJson(body));
+                HttpContent abodyEnvio = new StringContent(ToJson(body), Encoding.UTF8, "application/json");
                 var retorno = await req.PostAsync(uri, abodyEnvio);
                 if (!retorno.IsSuccessStatusCode)
                     TratarRetornoSemSucesso(retorno);
@@ -191,7 +200,7 @@ namespace Moip.Net4
                 var retorno = await req.GetAsync(uri);
                 if (!retorno.IsSuccessStatusCode)
                     TratarRetornoSemSucesso(retorno);
-                
+
                 return retorno;
             }
             catch (Exception exception)
@@ -204,21 +213,6 @@ namespace Moip.Net4
             return DoDeleteAsync(uri).Result;
         }
         #endregion
-
-
-
-
-
-        protected virtual Uri PathToUri(string path, string query = null)
-        {
-            UriBuilder uriBuilder = new UriBuilder(ApiUri);
-            uriBuilder.Path = path;
-            if (!string.IsNullOrEmpty(query))
-            {
-                uriBuilder.Query = query;
-            }
-            return uriBuilder.Uri;
-        }
 
         #endregion
 

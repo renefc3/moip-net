@@ -6,10 +6,16 @@ namespace Moip.Net4
     public class MoipException : Exception
     {
         public readonly HttpStatusCode StatusCode;
+        public readonly ResponseError Error;
         
         public MoipException(string message, HttpStatusCode statusCode) : base(message)
         {
             StatusCode = statusCode;
+        }
+
+        public MoipException(string message, HttpStatusCode statusCode, ResponseError error) : this(message, statusCode)
+        {
+            Error = error;
         }
     }
 }
