@@ -25,7 +25,7 @@ namespace Moip.Net4.OAuth
             listaVariaveis.Add(new KeyValuePair<string, string>("client_secret", client_secret));
             listaVariaveis.Add(new KeyValuePair<string, string>("code", code));
             listaVariaveis.Add(new KeyValuePair<string, string>("redirect_uri", redirect_uri));
-            return DoPostFormUrlEncoded<GenerateTokenResponse>(new Uri($"oauth/token"), listaVariaveis);
+            return DoPostFormUrlEncoded<GenerateTokenResponse>(new Uri(ApiUri, $"oauth/token"), listaVariaveis);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Moip.Net4.OAuth
             listaVariaveis.Add(new KeyValuePair<string, string>("client_secret", client_secret));
             listaVariaveis.Add(new KeyValuePair<string, string>("code", code));
             listaVariaveis.Add(new KeyValuePair<string, string>("redirect_uri", redirect_uri));
-            return await DoPostFormUrlEncodedAsync<GenerateTokenResponse>(new Uri($"oauth/token"), listaVariaveis);
+            return await DoPostFormUrlEncodedAsync<GenerateTokenResponse>(new Uri(ApiUri, $"oauth/token"), listaVariaveis);
         }
 
     }

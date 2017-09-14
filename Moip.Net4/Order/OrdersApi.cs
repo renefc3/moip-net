@@ -16,7 +16,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public CreateOrdersResponse CreateOrder(CreateOrdersRequest req)
         {
-            return DoPost<CreateOrdersRequest, CreateOrdersResponse>(new Uri("v2/orders"), req);
+            return DoPost<CreateOrdersRequest, CreateOrdersResponse>(new Uri(ApiUri, "v2/orders"), req);
         }
 
         /// <summary>
@@ -26,7 +26,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<CreateOrdersResponse> CreateOrderAsync(CreateOrdersRequest req)
         {
-            return await DoPostAsync<CreateOrdersRequest, CreateOrdersResponse>(new Uri("v2/orders"), req);
+            return await DoPostAsync<CreateOrdersRequest, CreateOrdersResponse>(new Uri(ApiUri, "v2/orders"), req);
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public GetOrderResponse GetOrder(string IdOrder)
         {
-            return DoGet<GetOrderResponse>(new Uri($"v2/orders/{IdOrder}"));
+            return DoGet<GetOrderResponse>(new Uri(ApiUri, $"v2/orders/{IdOrder}"));
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Moip.Net4
         /// <returns></returns>
         public async Task<GetOrderResponse> GetOrderAsync(string IdOrder)
         {
-            return await DoGetAsync<GetOrderResponse>(new Uri($"v2/orders/{IdOrder}"));
+            return await DoGetAsync<GetOrderResponse>(new Uri(ApiUri, $"v2/orders/{IdOrder}"));
         }
 
     }

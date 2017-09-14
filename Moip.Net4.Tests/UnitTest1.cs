@@ -16,6 +16,53 @@ namespace Moip.Net4.Tests
     }
 
     [TestClass]
+    public class OrderApiTests : BaseApiIntegratedTests
+    {
+        [TestMethod]
+        public void OrderApi_CreateOrder()
+        {
+            OrdersApi api = new OrdersApi(BaseUrl, apiToken, apiKey);
+
+            CreateOrdersRequest req = new CreateOrdersRequest();
+            req.Amount = new AmountsCreateOrdersRequest()
+            {
+                Currency = CurrencyType.BRL,
+                Subtotals = new TotaisAmountsCreateOrdersRequest()
+                {
+                    Shipping = 0
+                }
+            };
+            string idCliente = "CUS-1IO9IR204YI4";
+            req.Customer = new ClienteCreateOrdersRequest(idCliente);
+            req.Items = new System.Collections.Generic.List<OrderItemCreateOrdersRequest>();
+            req.Items.Add(new OrderItemCreateOrdersRequest()
+            {
+                Detail = "Detalhe Produto de teste ",
+                Price = 1,
+                Product = "Produto de teste ",
+                Quantity = 1
+            });
+            req.OwnId = "231";
+            req.Receivers = new System.Collections.Generic.List<ReceiverCreateOrdersRequest>();
+            req.Receivers.Add(new ReceiverCreateOrdersRequest()
+            {
+                Type = ReceiverType.PRIMARY,
+                Amount = new AmountReceiverCreateOrdersRequest()
+                {
+                    Percentual = 100
+                },
+                FeePayor = false,
+                moipAccount = new MoipAccountReceiverCreateOrdersRequest()
+                {
+                    Id = ""
+                }
+            });
+
+            var retorno = api.CreateOrder(req);
+        }
+    }
+
+    [TestClass]
     public class CustomersApiTests : BaseApiIntegratedTests
     {
         [TestMethod]
@@ -91,6 +138,8 @@ namespace Moip.Net4.Tests
             };
 
             var retorno = api.AddCreditCard(idcliente, request);
+            Assert.IsNotNull(retorno);
+            Assert.IsNotNull(retorno.Id);
         }
     }
 }
