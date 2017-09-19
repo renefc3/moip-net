@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Moip.Net4.OAuth
 {
-    public class OAuthAPI : BaseClient
+    public class OAuthAPI : BasicAutenticationApiCaller
     {
         public OAuthAPI(Uri apiUri, string apiToken, string apiKey) : base(apiUri, apiToken, apiKey)
         {

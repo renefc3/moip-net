@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moip.Net4;
+using Moip.Net4.OAuth;
 
 namespace Moip.Net4.Tests
 {
@@ -8,9 +9,9 @@ namespace Moip.Net4.Tests
 
     public class BaseApiIntegratedTests
     {
-        public Uri BaseUrl { get { return new Uri("URL"); } }
-        public string apiToken { get { return "SEU_TOKEN"; } }
-        public string apiKey { get { return "API_KEY"; } }
+        public Uri BaseUrl { get { return new Uri("https://sandbox.moip.com.br"); } }
+        public string apiToken { get { return "Z18HAHMDA3HYLZ95GALXN9KNHUSE7VEX"; } }
+        public string apiKey { get { return "GUNIQEBNA7HUEN9HICLONMQN2DXY0HBZB0XVC1SY"; } }
 
 
     }
@@ -38,7 +39,7 @@ namespace Moip.Net4.Tests
             req.Items.Add(new OrderItemCreateOrdersRequest()
             {
                 Detail = "Detalhe Produto de teste ",
-                Price = 1,
+                Price = 100,
                 Product = "Produto de teste ",
                 Quantity = 1
             });
@@ -49,12 +50,13 @@ namespace Moip.Net4.Tests
                 Type = ReceiverType.PRIMARY,
                 Amount = new AmountReceiverCreateOrdersRequest()
                 {
-                    Percentual = 100
+                    Percentual = 100,
+                    ValueFixed = 100
                 },
                 FeePayor = false,
                 moipAccount = new MoipAccountReceiverCreateOrdersRequest()
                 {
-                    Id = ""
+                    Id = "0212"
                 }
             });
 
@@ -142,4 +144,17 @@ namespace Moip.Net4.Tests
             Assert.IsNotNull(retorno.Id);
         }
     }
+
+    [TestClass]
+    public class OAuthAPITestes : BaseApiIntegratedTests
+    {
+        [TestMethod]
+        public void OAuthAPITestes_CreateCustomer()
+        {
+            OAuthAPI api = new OAuthAPI(BaseUrl, apiToken, apiKey);
+
+        }
+
+    }
+
 }

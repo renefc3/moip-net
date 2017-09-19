@@ -59,6 +59,7 @@
     <Compile Include="Customer\DocumentDto.cs" />
     <Compile Include="Customer\HolderDto.cs" />
     <Compile Include="Customer\PhoneDto.cs" />
+    <Compile Include="MoipAccounts\MoipAccountsApi.cs" />
     <Compile Include="MoipException.cs" />
     <Compile Include="OAuth\GenerateTokenResponse.cs" />
     <Compile Include="OAuth\OAuthAPI.cs" />

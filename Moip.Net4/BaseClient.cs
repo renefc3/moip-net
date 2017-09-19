@@ -5,28 +5,20 @@ using System.Threading.Tasks;
 using System.Net.Http;
 using System.Net;
 using System.Collections.Generic;
+using Moip.Net4.OAuth;
 
 namespace Moip.Net4
 {
-    public abstract class BaseClient
+
+    public abstract class BaseApiCaller
     {
         #region Properties
-        private readonly string ApiToken;
-        private readonly string ApiKey;
-        protected readonly Uri ApiUri;
-        private const string UserAgent = "Moip.NET.v0.0.1";
-        private readonly Encoding encoding = Encoding.UTF8;
+        protected Uri ApiUri;
+        private const string UserAgent = "SDK.Moip.v0.0.1";
+        private Encoding encoding = Encoding.UTF8;
         #endregion
 
-        protected BaseClient(Uri apiUri, string apiToken, string apiKey)
-        {
-            ApiUri = apiUri;
-            ApiToken = apiToken;
-            ApiKey = apiKey;
-        }
-
         #region JsonSerializerSettings
-
         protected Newtonsoft.Json.JsonSerializerSettings JsonSettings
         {
             get
@@ -38,21 +30,17 @@ namespace Moip.Net4
             }
         }
 
-
-        public string ToJson(object item)
+        protected string ToJson(object item)
         {
             return JsonConvert.SerializeObject(item, JsonSettings);
 
         }
 
-        public T FromJson<T>(string json)
+        protected T FromJson<T>(string json)
         {
             return JsonConvert.DeserializeObject<T>(json, JsonSettings);
         }
-
         #endregion
-
-        #region DoRequest
 
         protected virtual HttpClient CreateRequest()
         {
@@ -62,12 +50,6 @@ namespace Moip.Net4
             client.DefaultRequestHeaders.Add("ContentType", "application/json");
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
             return client;
-        }
-
-        private string GetAuthorizationHeader()
-        {
-            var base64Key = Convert.ToBase64String(Encoding.Default.GetBytes(string.Format("{0}:{1}", ApiToken, ApiKey)));
-            return string.Format("Basic {0}", base64Key);
         }
 
         private void TratarRetornoSemSucesso(HttpResponseMessage httpResponse)
@@ -80,6 +62,7 @@ namespace Moip.Net4
             var responseError = FromJson<ResponseError>(jsonResult);
             throw new MoipException(responseError.FullMessage, httpResponse.StatusCode, responseError);
         }
+
 
         #region POST
         protected async Task<HttpResponseMessage> DoPostVoidAsync<REQ>(Uri uri, REQ body)
@@ -214,7 +197,53 @@ namespace Moip.Net4
         }
         #endregion
 
-        #endregion
+        protected abstract string GetAuthorizationHeader();
+
+
+    }
+    public abstract class OauthAutenticationApiCaller : BaseApiCaller
+    {
+        protected GenerateTokenResponse Token;
+
+        protected OauthAutenticationApiCaller(Uri apiUri, GenerateTokenResponse token)
+        {
+
+            ApiUri = apiUri;
+            Token = token;
+        }
+
+        protected override string GetAuthorizationHeader()
+        {
+            return string.Format("OAuth {0}", Token.Access_token);
+
+        }
+    }
+
+
+    public abstract class BasicAutenticationApiCaller : BaseApiCaller
+    {
+        protected string ApiToken;
+        protected string ApiKey;
+
+        protected BasicAutenticationApiCaller(Uri apiUri, string apiToken, string apiKey)
+        {
+            ApiUri = apiUri;
+            ApiToken = apiToken;
+            ApiKey = apiKey;
+        }
+
+
+
+
+        protected override string GetAuthorizationHeader()
+        {
+            var base64Key = Convert.ToBase64String(Encoding.Default.GetBytes(string.Format("{0}:{1}", ApiToken, ApiKey)));
+            return string.Format("Basic {0}", base64Key);
+        }
+
+
+
+
 
     }
 

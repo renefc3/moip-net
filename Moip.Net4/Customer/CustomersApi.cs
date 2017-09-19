@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Moip.Net4
 {
-    public sealed class CustomersApi : BaseClient
+    public sealed class CustomersApi : BasicAutenticationApiCaller
     {
         public CustomersApi(Uri apiUri, string apiToken, string apiKey) : base(apiUri, apiToken, apiKey)
         {

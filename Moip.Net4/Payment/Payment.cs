@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Moip.Net4
 {
-    public class PaymentAPI : BaseClient
+    public class PaymentAPI : BasicAutenticationApiCaller
     {
         public PaymentAPI(Uri apiUri, string apiToken, string apiKey) : base(apiUri, apiToken, apiKey)
         {
